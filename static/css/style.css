@@ -1,0 +1,303 @@
+/* Custom CSS Variables */
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    --danger-gradient: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
+    --glass-bg: rgba(255, 255, 255, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* Global Styles */
+body {
+    background: #f0f0f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: -1;
+}
+
+.todo-container {
+    max-width: 800px;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Glass Effect */
+.glass-effect {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    /* Decreased glow effect */
+    box-shadow: 0 4px 12px 0 rgba(31, 38, 135, 0.18);
+    border-radius: 20px;
+}
+
+/* Header Styles */
+.gradient-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: bold; /* Make heading bold */
+}
+
+/* Button Styles */
+.btn {
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+    border: none;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-success {
+    background: var(--success-gradient);
+    border: none;
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(74, 172, 254, 0.4);
+}
+
+.btn-warning {
+    background: var(--warning-gradient);
+    border: none;
+    color: white;
+}
+
+.btn-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(250, 112, 154, 0.4);
+    color: white;
+}
+
+.btn-danger {
+    background: var(--danger-gradient);
+    border: none;
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.btn-outline-primary.active {
+    background: var(--primary-gradient);
+    border: none;
+    color: white;
+}
+
+.btn-outline-success.active {
+    background: var(--success-gradient);
+    border: none;
+    color: white;
+}
+
+.btn-outline-warning.active {
+    background: var(--warning-gradient);
+    border: none;
+    color: white;
+}
+
+/* Form Styles */
+.form-control {
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 12px 16px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    transform: translateY(-1px);
+}
+
+/* Task Card Styles */
+.task-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 5px solid var(--glass-border);
+    border-radius: 16px;
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    /* Decreased glow effect */
+    box-shadow: 0 4px 12px rgba(31, 38, 135, 0.18);
+    animation: slideInUp 0.3s ease;
+}
+
+.task-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(31, 38, 135, 0.5);
+}
+
+.task-card.completed {
+    opacity: 0.7;
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.task-card.completed .task-title {
+    text-decoration: line-through;
+    color: #666;
+}
+
+.task-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.task-description {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+
+.task-meta {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.task-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.task-actions .btn {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+}
+
+/* Filter Section */
+.filter-section .btn-group {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.filter-section .btn {
+    border-radius: 0;
+    flex: 1;
+}
+
+/* Loading Animation */
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Empty State */
+#emptyState {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 40px;
+}
+
+/* Modal Styles */
+.modal-content {
+    border: none;
+    border-radius: 20px;
+}
+
+/* Animations */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.task-card {
+    animation: slideInUp 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .todo-container {
+        padding: 1px;
+    }
+    
+    .todo-header h1 {
+        font-size: 2rem;
+    }
+    
+    .task-actions {
+        flex-wrap: wrap;
+    }
+    
+    .task-actions .btn {
+        font-size: 0.8rem;
+        padding: 8px 16px;
+    }
+}
+
+/* Status Badge */
+.status-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #28a745;
+}
+
+.status-badge.pending {
+    background: #ffc107;
+}
+
+/* Checkbox Styles */
+.task-checkbox {
+    width: 24px;
+    height: 24px;
+    margin-right: 25px;
+    cursor: pointer;
+    accent-color: #667eea; /* Modern browsers: purple/blue accent */
+    background-color: #fff;
+    border: 2px solid #667eea;
+    border-radius: 6px;
+    padding: 8px; /* Add padding for better appearance */
+    box-shadow: 0 2px 6px rgba(102, 126, 234, 0.15);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.task-checkbox:focus, .task-checkbox:hover {
+    border-color: #764ba2;
+    box-shadow: 0 0 0 2px rgba(118, 75, 162, 0.2);
+}
