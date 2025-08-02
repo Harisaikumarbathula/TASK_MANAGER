@@ -12,7 +12,8 @@ cache = Cache(app, config={'CACHE_TYPE': 'SimpleCache', 'CACHE_DEFAULT_TIMEOUT':
 
 # Database configuration
 DB_CONFIG = {
-    'host': 'localhost',
+    'host': 'your-mysql-host.render.com',
+    'port': 3306,
     'user': 'root',  # Replace with your MySQL username
     'password': '123456',  # Replace with your MySQL password
     'database': 'todo_app'
