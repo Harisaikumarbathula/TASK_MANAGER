@@ -35,12 +35,6 @@ body::before {
     padding: 20px;
 }
 
-.auth-container {
-    max-width: 500px;
-    width: 100%;
-    padding: 20px;
-}
-
 /* Glass Effect */
 .glass-effect {
     background: var(--glass-bg);
@@ -59,52 +53,6 @@ body::before {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-weight: bold; /* Make heading bold */
-}
-
-/* User Header Styles */
-.user-header {
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    border-radius: 15px;
-    padding: 15px 20px;
-    box-shadow: 0 4px 12px rgba(31, 38, 135, 0.18);
-}
-
-.user-info {
-    font-size: 0.95rem;
-}
-
-.user-actions .btn {
-    border-radius: 10px;
-    padding: 8px 16px;
-    font-size: 0.85rem;
-}
-
-/* Alert Styles */
-.alert {
-    border-radius: 15px;
-    border: none;
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 4px 12px rgba(31, 38, 135, 0.18);
-}
-
-.alert-success {
-    background: rgba(76, 175, 80, 0.1);
-    color: #2e7d32;
-}
-
-.alert-danger {
-    background: rgba(244, 67, 54, 0.1);
-    color: #c62828;
-}
-
-.alert-info {
-    background: rgba(33, 150, 243, 0.1);
-    color: #1565c0;
 }
 
 /* Button Styles */
@@ -189,18 +137,6 @@ body::before {
     border-color: #667eea;
     box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
     transform: translateY(-1px);
-}
-
-.form-label {
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 8px;
-}
-
-.form-text {
-    font-size: 0.85rem;
-    color: #666;
-    margin-top: 5px;
 }
 
 /* Task Card Styles */
@@ -317,10 +253,6 @@ body::before {
         padding: 1px;
     }
     
-    .auth-container {
-        padding: 10px;
-    }
-    
     .todo-header h1 {
         font-size: 2rem;
     }
@@ -332,14 +264,6 @@ body::before {
     .task-actions .btn {
         font-size: 0.8rem;
         padding: 8px 16px;
-    }
-    
-    .user-header {
-        padding: 10px 15px;
-    }
-    
-    .user-info {
-        font-size: 0.85rem;
     }
 }
 
