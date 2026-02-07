@@ -3,6 +3,7 @@ from flask_cors import CORS
 import mysql.connector
 from datetime import datetime
 from flask_caching import Cache
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -10,25 +11,31 @@ CORS(app)
 # Initialize cache with the app
 cache = Cache(app, config={'CACHE_TYPE': 'SimpleCache', 'CACHE_DEFAULT_TIMEOUT': 300})  # Cache timeout 5 minutes
 
-# Database configuration
 DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'root',  # Replace with your MySQL username
-    'password': '123456',  # Replace with your MySQL password
-    'database': 'todo_app'
+    "host": os.getenv("DB_HOST", "mysql-21f4997e-harisaikumar265-02f5.a.aivencloud.com"),
+    "port": int(os.getenv("DB_PORT", "24128")),  # replace with Aiven port
+    "user": os.getenv("DB_USER", "avnadmin"),
+    # Do not hardcode secrets. Provide via environment variable.
+    "password": os.getenv("DB_PASSWORD", ""),
+    "database": os.getenv("DB_NAME", "todo_app"),
 }
 
+SSL_CA = os.getenv("DB_SSL_CA")
+
 def get_db_connection():
-    return mysql.connector.connect(**DB_CONFIG)
+    cfg = DB_CONFIG.copy()
+    if SSL_CA:
+        cfg.update({"ssl_ca": SSL_CA, "ssl_verify_cert": True})
+    return mysql.connector.connect(**cfg)
 
 def init_db():
     """Initialize the database and create tables"""
     try:
-        connection = mysql.connector.connect(
-            host=DB_CONFIG['host'],
-            user=DB_CONFIG['user'],
-            password=DB_CONFIG['password']
-        )
+        cfg = DB_CONFIG.copy()
+        cfg.pop('database', None)
+        if SSL_CA:
+            cfg.update({"ssl_ca": SSL_CA, "ssl_verify_cert": True})
+        connection = mysql.connector.connect(**cfg)
         cursor = connection.cursor()
         
         # Create database if it doesn't exist
