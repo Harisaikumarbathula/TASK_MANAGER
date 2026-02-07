@@ -17,6 +17,7 @@ mysql-connector-python==9.5.0
 mysqlclient==2.2.7
 packaging==25.0
 protobuf==4.21.12
+python-dotenv==1.0.1
 requests==2.32.4
 urllib3==2.5.0
 Werkzeug==2.3.7

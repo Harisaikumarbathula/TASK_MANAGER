@@ -4,6 +4,11 @@ import mysql.connector
 from datetime import datetime
 from flask_caching import Cache
 import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+ENV_PATH = Path(__file__).resolve().parent / ".env"
+load_dotenv(dotenv_path=ENV_PATH, override=True)
 
 app = Flask(__name__)
 CORS(app)
@@ -15,26 +20,30 @@ DB_CONFIG = {
     "host": os.getenv("DB_HOST", "mysql-21f4997e-harisaikumar265-02f5.a.aivencloud.com"),
     "port": int(os.getenv("DB_PORT", "24128")),  # replace with Aiven port
     "user": os.getenv("DB_USER", "avnadmin"),
-    # Do not hardcode secrets. Provide via environment variable.
-    "password": os.getenv("DB_PASSWORD", ""),
+    "password": os.getenv("DB_PASSWORD",""),
     "database": os.getenv("DB_NAME", "todo_app"),
 }
 
 SSL_CA = os.getenv("DB_SSL_CA")
 
-def get_db_connection():
-    cfg = DB_CONFIG.copy()
+def _apply_ssl(cfg):
     if SSL_CA:
+        if not os.path.isfile(SSL_CA):
+            raise RuntimeError(f"DB_SSL_CA file not found: {SSL_CA}")
         cfg.update({"ssl_ca": SSL_CA, "ssl_verify_cert": True})
+    return cfg
+
+def get_db_connection():
+    cfg = _apply_ssl(DB_CONFIG.copy())
     return mysql.connector.connect(**cfg)
 
 def init_db():
     """Initialize the database and create tables"""
     try:
         cfg = DB_CONFIG.copy()
-        cfg.pop('database', None)
-        if SSL_CA:
-            cfg.update({"ssl_ca": SSL_CA, "ssl_verify_cert": True})
+        cfg.pop("database", None)
+        cfg = _apply_ssl(cfg)
+        print(f"Initializing DB connection to {cfg['host']}:{cfg['port']}")
         connection = mysql.connector.connect(**cfg)
         cursor = connection.cursor()
         
@@ -59,6 +68,8 @@ def init_db():
         connection.close()
         print("Database initialized successfully!")
         
+    except RuntimeError as e:
+        print(f"Error initializing database: {e}")
     except mysql.connector.Error as e:
         print(f"Error initializing database: {e}")
 
